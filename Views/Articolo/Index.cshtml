@@ -20,6 +20,7 @@
                 <p class="card-text">@art.Description</p>
                 <p class="card-text">@art.Price</p>
                         <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-warning" asp-area="" asp-controller="Articolo" asp-action="Edit" asp-route-id="@art.Id">Modifica</a>
                             <form asp-action="SoftDelete" method="post">
                                 <input type="hidden" name="ArtId" value="@art.Id" />
                                 <button type="submit" class="btn">🗑</button>

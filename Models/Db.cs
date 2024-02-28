@@ -5,47 +5,43 @@ namespace Zalando.Models
 {
     public static class Db
     {
-        private static int _maxId = 2;
+        private static int _maxId = 3;
 
         private static List<Articolo> _articoli = [
-            new Articolo() { Id = 0, Name = "Stivale", Description = "É un bello stivale", ImgCover="https://th.bing.com/th/id/R.05c726598f03b8e74deffbb120c1807e?rik=N28ifn4XJXoISw&pid=ImgRaw&r=0", Price = 50, Deleted= false, ImgDetails=["https://images-na.ssl-images-amazon.com/images/I/41liOW8SAjL._SY395_QL70_.jpg", "https://th.bing.com/th/id/R.a08be4992a99021c15692d544991ab14?rik=T5l1O1bNDCxgKg&pid=ImgRaw&r=0"]},
-            new Articolo() { Id = 1, Name = "Sneakers", Description = "Comodo", ImgCover="https://th.bing.com/th/id/OIP.pZGFD1RcJ7JwXTJ8UNWqaAHaFF?rs=1&pid=ImgDetMain", Price = 50, Deleted= false, ImgDetails=["https://th.bing.com/th/id/R.610ad1df76d928f4c54b8d26f07704a0?rik=zFkIpGtHXM5Wgw&pid=ImgRaw&r=0", "https://th.bing.com/th/id/OIP.EpBY3rsEuLrw2y1yRG10lgHaI4?w=500&h=600&rs=1&pid=ImgDetMain"] },
-             new Articolo() { Id = 2, Name = "Ciabatte", Description = "Scomodo", ImgCover="https://th.bing.com/th/id/R.05c726598f03b8e74deffbb120c1807e?rik=N28ifn4XJXoISw&pid=ImgRaw&r=0", Price = 50, Deleted= false, ImgDetails=["https://images-na.ssl-images-amazon.com/images/I/41liOW8SAjL._SY395_QL70_.jpg", "https://th.bing.com/th/id/R.a08be4992a99021c15692d544991ab14?rik=T5l1O1bNDCxgKg&pid=ImgRaw&r=0"] }
-        ];
-
-
+            new Articolo(){Id = 0, Name = "Stivale", Description = "Stivali da pescatore", ImgCover = "https://m.media-amazon.com/images/I/51C-Ch6bfgL._AC_UY900_.jpg", Price = 20, Deleted = false, ImgDetails =["https://m.media-amazon.com/images/I/51C-Ch6bfgL._AC_UY900_.jpg" , "https://th.bing.com/th/id/R.05c726598f03b8e74deffbb120c1807e?rik=N28ifn4XJXoISw&pid=ImgRaw&r=0"] },
+            new Articolo(){Id = 1, Name = "Scarpa", Description = "Scarpa di Peppe", ImgCover = "https://www.gestoutlet.com/media/catalog/product/cache/87b8a5aea06f2f3e4bf5610540acc8e8/D/0/D0422_3.jpg", Price = 30, Deleted = false, ImgDetails =["https://www.gestoutlet.com/media/catalog/product/cache/87b8a5aea06f2f3e4bf5610540acc8e8/D/0/D0422_3.jpg", "https://th.bing.com/th/id/R.05c726598f03b8e74deffbb120c1807e?rik=N28ifn4XJXoISw&pid=ImgRaw&r=0"] },
+            new Articolo(){Id = 2, Name = "Ciabatta", Description = "Ciabatta materna da lancio", ImgCover = "https://www.tentazionecalzature.it/3134139-medium_default/ciabatta-da-camera-milly-7200-royal.jpg", Price = 10, Deleted = false, ImgDetails =["https://m.media-amazon.com/images/I/51C-Ch6bfgL._AC_UY900_.jpg" , "https://www.tentazionecalzature.it/3134139-medium_default/ciabatta-da-camera-milly-7200-royal.jpg"] }
+            ];
         public static List<Articolo> GetAll()
         {
             List<Articolo> articoli = [];
-            foreach(var art in _articoli)
+            foreach (var art in _articoli)
             {
-                if(art.Deleted == false) articoli.Add(art);
+                if (art.Deleted == false) articoli.Add(art);
             }
             return articoli;
         }
-
         public static List<Articolo> GetAllDeleted()
         {
             List<Articolo> artDeleted = [];
             foreach (var art in _articoli)
             {
-                if (art.Deleted ) artDeleted.Add(art);
+                if (art.Deleted) artDeleted.Add(art);
             }
             return artDeleted;
         }
-        
+
         public static Articolo? Recover(int IdToRecover)
         {
             int? index = findArtIndex(IdToRecover);
-          if(index != null)
+            if ((index != null))
             {
                 var artRecovered = _articoli[(int)index];
-                artRecovered.Deleted = true;
+                artRecovered.Deleted = false;
                 return artRecovered;
             }
-          return null;
+            return null;
         }
-
 
         private static int? findArtIndex(int id)
         {
@@ -55,29 +51,26 @@ namespace Zalando.Models
             {
                 if (_articoli[i].Id == id)
                 {
-                    artFound = false;
-
+                    artFound = true;
                     break;
                 }
             }
 
-            if (artFound)  return i;
+            if (artFound) return i;
             return null;
         }
 
         public static Articolo? GetById(int? id)
         {
             if (id == null) return null;
-            for(int i = 0; i  < _articoli.Count; i++)
-            
+            for (int i = 0; i < _articoli.Count; i++)
             {
-                Articolo art= _articoli[i];
+                Articolo art = _articoli[i];
                 if (art.Id == id) return art;
             }
             return null;
         }
-
-        public static Articolo Add(string name, string descrizione, Articolo articolo)
+        public static Articolo Add(Articolo articolo)
         {
             _maxId++;
             articolo.Id = _maxId;
@@ -89,11 +82,10 @@ namespace Zalando.Models
         public static Articolo? Edit(Articolo articolo)
         {
             int? index = findArtIndex(articolo.Id);
-            if (index != 0)
+            if (index != null)
             {
                 _articoli[(int)index].Name = articolo.Name;
                 _articoli[(int)index].ImgCover = articolo.ImgCover;
-                _articoli[(int)index].Deleted = articolo.Deleted;
                 _articoli[(int)index].Price = articolo.Price;
                 _articoli[(int)index].Description = articolo.Description;
                 _articoli[(int)index].ImgDetails[0] = articolo.ImgDetails[0];
@@ -102,11 +94,11 @@ namespace Zalando.Models
             }
             return null;
         }
-        
-        public static Articolo? SoftDeleted(int idToDelete)
+
+        public static Articolo? SoftDelete(int idToDelete)
         {
             int? deletedI = findArtIndex(idToDelete);
-            if(deletedI != null) 
+            if (deletedI != null)
             {
                 var artDeleted = _articoli[(int)deletedI];
                 artDeleted.Deleted = true;
@@ -114,7 +106,6 @@ namespace Zalando.Models
             }
             return null;
         }
-        
         public static Articolo? HardDelete(int idToDelete)
         {
             int? deletedI = findArtIndex(idToDelete);
@@ -126,16 +117,5 @@ namespace Zalando.Models
             }
             return null;
         }
-
-        public static Articolo Add(Articolo articolo)
-        {
-            _maxId++;
-            articolo.Id = _maxId;
-            articolo.Deleted = false;
-            _articoli.Add(articolo);
-            return articolo;
-        }
     }
-           
-     }
-    
+}

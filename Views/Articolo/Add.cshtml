@@ -1,0 +1,36 @@
+﻿@section Title {
+Aggiungi
+}
+
+<h2>Aggiungi articolo</h2>
+
+<form class="row g-3" asp-controller="Articolo" asp-action="Add" method="post">
+    <div class="col-md-6">
+        <label for="inputName" class="form-label">Nome Articolo</label>
+        <input type="text" class="form-control" id="InputName">
+    </div>
+    <div class="col-md-6">
+        <label for="inputDescrizione" class="form-label">Descrizione</label>
+        <input type="text" class="form-control" id="inputDescrizione">
+    </div>
+    <div class="col-12">
+        <label for="inputPrice" class="form-label">Prezzo</label>
+        <input type="text" class="form-control" id="inputPrice">
+    </div>
+    <div class="col-12">
+        <label for="inputImgCover" class="form-label">Immagine Copertina</label>
+        <input type="text" class="form-control" id="inputImgCover">
+    </div>
+    <div class="col-12">
+        <label for="inputImg1" class="form-label">Immagine 1</label>
+        <input type="text" class="form-control" id="inputImgCover">
+    </div>
+    <div class="col-12">
+        <label for="inputImg2" class="form-label">Immagine 2</label>
+        <input type="text" class="form-control" id="inputImg2">
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-outline-success">Aggiungi</button>
+    </div>
+</form>

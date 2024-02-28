@@ -37,7 +37,6 @@ namespace Zalando.Controllers
         }
 
         [HttpPost]
-
         public IActionResult Add(string name, string descrizione, decimal price, string imgCover, string img1, string img2)
         {
             Articolo articolo = new Articolo();
@@ -45,13 +44,26 @@ namespace Zalando.Controllers
             articolo.Description = descrizione;
             articolo.Price = price;
             articolo.ImgCover = imgCover;
-            articolo.ImgDetails[0].Insert(0, img1);
-            articolo.ImgDetails[1].Insert(0, img2);
-            Db.Add(articolo);
-            return RedirectToAction("Details", new { id = articolo.Id });
 
+            if (articolo.ImgDetails == null)
+            {
+                articolo.ImgDetails = new List<string>();
             }
-       
 
+            if (articolo.ImgDetails.Count < 2)
+            {
+                articolo.ImgDetails.Add(img1);
+                articolo.ImgDetails.Add(img2);
+            }
+            else
+            {
+                articolo.ImgDetails[0] = img1;
+                articolo.ImgDetails[1] = img2;
+            }
+
+            Db.Add(articolo);
+
+            return RedirectToAction("Details", new { id = articolo.Id });
+        }
     }
 }

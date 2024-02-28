@@ -1,5 +1,5 @@
 ﻿@section Title {
-Aggiungi
+Add
 }
 
 <h2>Aggiungi articolo</h2>
@@ -7,27 +7,27 @@ Aggiungi
 <form class="row g-3" asp-controller="Articolo" asp-action="Add" method="post">
     <div class="col-md-6">
         <label for="inputName" class="form-label">Nome Articolo</label>
-        <input type="text" class="form-control" id="InputName">
+        <input type="text" class="form-control" id="inputName" name="name">
     </div>
     <div class="col-md-6">
         <label for="inputDescrizione" class="form-label">Descrizione</label>
-        <input type="text" class="form-control" id="inputDescrizione">
+        <input type="text" class="form-control" id="inputDescrizione" name="descrizione">
     </div>
     <div class="col-12">
         <label for="inputPrice" class="form-label">Prezzo</label>
-        <input type="text" class="form-control" id="inputPrice">
+        <input type="text" class="form-control" id="inputPrice" name="price">
     </div>
     <div class="col-12">
         <label for="inputImgCover" class="form-label">Immagine Copertina</label>
-        <input type="text" class="form-control" id="inputImgCover">
+        <input type="text" class="form-control" id="inputImgCover" name="imgCover">
     </div>
     <div class="col-12">
         <label for="inputImg1" class="form-label">Immagine 1</label>
-        <input type="text" class="form-control" id="inputImgCover">
+        <input type="text" class="form-control" id="inputImg1" name="img1">
     </div>
     <div class="col-12">
         <label for="inputImg2" class="form-label">Immagine 2</label>
-        <input type="text" class="form-control" id="inputImg2">
+        <input type="text" class="form-control" id="inputImg2" name="img2">
     </div>
 
     <div class="col-12">

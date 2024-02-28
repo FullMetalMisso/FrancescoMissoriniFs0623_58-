@@ -127,9 +127,13 @@ namespace Zalando.Models
             return null;
         }
 
-        internal static void Add(Articolo articolo)
+        public static Articolo Add(Articolo articolo)
         {
-            throw new NotImplementedException();
+            _maxId++;
+            articolo.Id = _maxId;
+            articolo.Deleted = false;
+            _articoli.Add(articolo);
+            return articolo;
         }
     }
            
